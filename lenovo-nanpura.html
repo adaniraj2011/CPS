@@ -284,7 +284,7 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
     {l:["Laptop","Cooling Fan"], name:"Laptop Cooling Fan", d:"A cooling pad to keep your laptop running cool.", c:"COOL", ic:"fan", bg:"#FFC93C", fg:"#4A1D00"},
     {l:["Pizza","Voucher"], name:"Pizza Voucher", d:"A Domino's / La Pino'z voucher to celebrate.", c:"PIZZA", ic:"pizza", bg:"#2BA84A", fg:"#fff"},
     {l:["Laptop","Cleaning Kit"], name:"Laptop Cleaning Kit", d:"Screen spray, brush and microfibre cloth.", c:"CLEAN", ic:"spray", bg:"#0FA3B1", fg:"#fff"},
-    {l:["3-Yr Antivirus","50% OFF"], name:"3-Year Antivirus at 50% Off", d:"Half price on a 3-year antivirus licence.", c:"AV50", ic:"lock", bg:"#2D6CDF", fg:"#fff"},
+    {l:["3-Year","Antivirus","50% OFF"], b:2, name:"3-Year Antivirus at 50% Off", d:"Half price on a 3-year antivirus licence.", c:"AV50", ic:"lock", bg:"#2D6CDF", fg:"#fff"},
     {l:["Surprise","Gift"], name:"Surprise Gift", d:"A mystery gift picked by our store team.", c:"SURP", ic:"gift", bg:"#7B2CBF", fg:"#fff"},
     {l:["NBC Coffee","Voucher"], name:"NBC Coffee Voucher", d:"A coffee on us to toast the season.", c:"NBC", ic:"cup", bg:"#E83E8C", fg:"#fff"}
   ];
@@ -330,7 +330,17 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
   const cv=document.getElementById("wheel"), ctx=cv.getContext("2d");
   const N=PRIZES.length, SEG=2*Math.PI/N, C=500, R=500;
   function fit(t,w,s,fam,max){ ctx.font=`${w} ${s}px ${fam}`; while(ctx.measureText(t).width>max&&s>14){ s--; ctx.font=`${w} ${s}px ${fam}`; } }
+  /* labels sit between the centre button (r≈205) and the rim, all at one size */
+  const LF="Montserrat, system-ui, sans-serif", TX=R-50, TMAX=TX-205;
+  let S1=44, S2=34;
+  function sizeLabels(){
+    const fits=(list,w,sz)=>{ ctx.font=`${w} ${sz}px ${LF}`; return list.every(t=>ctx.measureText(t).width<=TMAX); };
+    const bold=[], sub=[]; PRIZES.forEach(p=>{ const nb=p.b||1; p.l.forEach((t,k)=>(k<nb?bold:sub).push(t)); });
+    S1=44; while(!fits(bold,800,S1)&&S1>16) S1--;
+    S2=Math.min(34,Math.round(S1*.82)); while(!fits(sub,600,S2)&&S2>14) S2--;
+  }
   function drawWheel(){
+    sizeLabels();
     ctx.clearRect(0,0,1000,1000); ctx.save(); ctx.translate(C,C);
     for(let i=0;i<N;i++){
       const p=PRIZES[i], a0=-Math.PI/2+i*SEG, a1=a0+SEG;
@@ -341,14 +351,15 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
       // rangoli petals pattern
       ctx.save(); ctx.rotate(a0+SEG/2);
       ctx.fillStyle="rgba(255,255,255,.16)";
-      for(let k=0;k<3;k++){ const rr=R-34-k*26; ctx.beginPath(); ctx.arc(rr,0,k===0?9:5,0,Math.PI*2); ctx.fill(); }
+      ctx.beginPath(); ctx.arc(R-28,0,8,0,Math.PI*2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(R-34,-38,5,12,-.5,0,Math.PI*2); ctx.ellipse(R-34,38,5,12,.5,0,Math.PI*2); ctx.fill();
       // labels
       ctx.textAlign="right"; ctx.textBaseline="middle";
       ctx.shadowColor="rgba(0,0,0,.25)"; ctx.shadowBlur=p.fg==="#fff"?6:0; ctx.shadowOffsetY=2;
       ctx.fillStyle=p.fg;
-      fit(p.l[0],"800",44,"Montserrat, system-ui, sans-serif",R-215); ctx.fillText(p.l[0],R-78,-24);
-      fit(p.l[1],"600",34,"Montserrat, system-ui, sans-serif",R-215); ctx.fillText(p.l[1],R-78,24);
+      const nb=p.b||1, rows=p.l.map((t,k)=>({t,bold:k<nb,h:k<nb?S1*1.12:S2*1.3}));
+      let y=-rows.reduce((a,r)=>a+r.h,0)/2;
+      rows.forEach(r=>{ ctx.font=`${r.bold?800:600} ${r.bold?S1:S2}px ${LF}`; ctx.fillText(r.t,TX,y+r.h/2); y+=r.h; });
       ctx.restore();
     }
     // white dividers
