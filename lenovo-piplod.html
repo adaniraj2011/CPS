@@ -120,6 +120,35 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
 .btn{margin-top:22px;font-family:var(--body);font-weight:800;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:14px 40px;border:0;border-radius:999px;cursor:pointer;color:#fff;background:linear-gradient(90deg,var(--pink),var(--purple));box-shadow:0 10px 24px rgba(123,44,191,.35)}
 .btn:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 #confetti{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+
+/* ---------- entry form: same festive theme as the hero panel ---------- */
+.entry{position:fixed;inset:0;z-index:45;display:grid;place-items:center;overflow-y:auto;background:radial-gradient(circle at 50% 40%,rgba(42,11,61,.25),rgba(26,6,38,.7) 75%);backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px);padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.entry-card{position:relative;width:min(440px,100%);background:rgba(42,11,61,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:28px;padding:30px 28px 26px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 80px rgba(255,201,60,.12);animation:pop .5s cubic-bezier(.2,1.3,.4,1);display:flex;flex-direction:column}
+.entry-card::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--green),var(--teal),var(--blue),var(--purple),var(--pink))}
+.entry-badge{align-self:center;background:#fff;border-radius:14px;padding:7px 11px;line-height:0;box-shadow:0 8px 22px rgba(0,0,0,.3);margin:6px 0 18px}
+.entry-logo{height:58px;width:auto;display:block}
+.entry-card .chip{align-self:center}
+.entry-card h3{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,44px);line-height:1.05;margin:14px 0 8px;text-align:center;color:#fff}
+.entry-card h3 span{background:linear-gradient(90deg,var(--yellow),var(--orange) 45%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.entry-card .sub{font-size:14.5px;color:var(--soft);opacity:.9;margin:0 0 22px;text-align:center}
+.entry-card .sub strong{color:var(--yellow)}
+.entry-card label{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 7px}
+.entry-card input[type=text],.entry-card input[type=tel]{width:100%;font:600 16px var(--body);color:#fff;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);border-radius:14px;padding:13px 14px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s}
+.entry-card input::placeholder{color:rgba(246,233,255,.5);font-weight:500}
+.entry-card input:focus{border-color:var(--yellow);background:rgba(255,255,255,.12);box-shadow:0 0 0 4px rgba(255,201,60,.18)}
+.entry-card input[aria-invalid=true]{border-color:#FF6B81;box-shadow:0 0 0 4px rgba(255,107,129,.18)}
+.field{display:flex;flex-direction:column;margin-bottom:16px}
+.phone{display:flex;align-items:stretch}
+.phone span{display:grid;place-items:center;padding:0 13px;font-weight:700;color:var(--gold);background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22);border-right:0;border-radius:14px 0 0 14px}
+.phone input{border-radius:0 14px 14px 0!important;min-width:0}
+.err{min-height:1.3em;margin:0 0 8px;font-size:13.5px;font-weight:600;color:#FF8FA3;text-align:center}
+.fine{font-size:11.5px;color:var(--soft);opacity:.6;text-align:center;margin:14px 0 0;line-height:1.45}
+.entry-card .btn{margin-top:2px;width:100%;font-size:15px;padding:16px 20px;background:linear-gradient(90deg,var(--orange),var(--pink) 55%,var(--purple));box-shadow:0 12px 28px rgba(232,62,140,.4)}
+.entry-card .btn:disabled{opacity:.7;cursor:wait}
+.entry-gifts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 22px}
+.entry-gifts i{font-style:normal;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;color:#fff;background:var(--c)}
+.entry-gifts i.d{color:#4A1D00}
+.hello{font-weight:700;color:var(--yellow)}
 .sound{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:52px;height:52px;border-radius:50%;border:2px solid #fff;cursor:pointer;
   background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.4)}
 .sound svg{width:24px;height:24px}
@@ -204,9 +233,29 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
   </div>
 </section>
 
+<div class="entry" id="entry" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
+  <form class="entry-card" id="entryForm" novalidate>
+    <div class="entry-badge"><img class="entry-logo" id="entryLogo" alt="CPS Technologies, since 1994"></div>
+    <span class="chip"><i></i>Navratri Festive Offer 2026</span>
+    <h3 id="entryTitle">Spin &amp; <span>Win a Gift!</span></h3>
+    <p class="sub">Enter your details to spin the wheel. <strong>Every spin wins!</strong></p>
+    <div class="entry-gifts" id="entryGifts" aria-label="Gifts on the wheel"></div>
+    <div class="field">
+      <label for="fName">Your name</label>
+      <input type="text" id="fName" name="name" autocomplete="name" maxlength="60" placeholder="Full name">
+    </div>
+    <div class="field">
+      <label for="fPhone">Mobile number</label>
+      <div class="phone"><span>+91</span><input type="tel" id="fPhone" name="phone" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number"></div>
+    </div>
+    <p class="err" id="fErr" aria-live="polite"></p>
+    <button class="btn" type="submit" id="fGo">Continue to Spin</button>
+    <p class="fine">By continuing, you agree that CPS Technologies may contact you about this offer.</p>
+  </form>
+</div>
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="winTitle">
   <div class="ticket">
-    <div class="k">🎉 Congratulations! You won</div>
+    <div class="k" id="winK">🎉 Congratulations! You won</div>
     <h3 id="winTitle">Gift</h3>
     <p class="sub" id="winSub"></p>
     <div class="code">
@@ -224,6 +273,11 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
 
 <script>
 (function(){
+  /* ===== SETTINGS =====
+     SHEET_URL: paste your Google Apps Script web app link here (ends with /exec).
+     STORE: which store this link belongs to; it goes into the sheet. */
+  const SHEET_URL="https://script.google.com/macros/s/AKfycbwjr2DPAJ0AYz9T2O7GPnVesAMRvjS1Ybr_FqAP4-rRNUev3SFhmaNa8fr61SlbFkco_Q/exec";
+  const STORE="Lenovo Exclusive Store, Piplod";
   const PRIZES = [
     {l:["6 Months","Extra Service"], name:"6 Months Extra Service", d:"Six more months of service cover on your new device.", c:"SRV6", ic:"shield", bg:"#D7263D", fg:"#fff"},
     {l:["Ant Esports","Gaming Mouse"], name:"Ant Esports Gaming Mouse", d:"A free gaming mouse with your purchase.", c:"MOUSE", ic:"mouse", bg:"#F46036", fg:"#fff"},
@@ -323,6 +377,7 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
   const easeOut=t=>1-Math.pow(1-t,4);
   function spin(){
     if(spinning) return;
+    if(!player){ openEntry(); return; }
     spinning=true; btn.disabled=true; box.classList.add("spinning");
     startMusic();
     note.innerHTML="Spinning… <b>good luck!</b>";
@@ -347,18 +402,78 @@ footer{margin-top:56px;text-align:center;font-size:13px;color:var(--soft);opacit
     document.getElementById("winTitle").textContent=p.name;
     document.getElementById("winTitle").style.color=p.fg==="#fff"?p.bg:"#C77700";
     document.getElementById("winSub").textContent=p.d;
-    document.getElementById("winCode").textContent="CPS-"+p.c+"-"+Math.floor(1000+Math.random()*9000);
+    const code="CPS-"+p.c+"-"+Math.floor(1000+Math.random()*9000);
+    document.getElementById("winCode").textContent=code;
+    document.getElementById("winK").textContent=player?`🎉 Congratulations, ${player.first}! You won`:"🎉 Congratulations! You won";
+    if(player) saveSpin({action:"save",name:player.name,phone:player.phone,store:STORE,prize:p.name,code});
     modal.hidden=false; document.getElementById("closeBtn").focus();
     note.innerHTML=`You won <b>${p.name}</b>!`;
     if(!reduce) confetti();
     stopMusic(2.5);
   }
-  function closeModal(){ stopMusic(.6); modal.hidden=true; spinning=false; btn.disabled=false; note.innerHTML=NOTE_IDLE; btn.focus(); }
+  function closeModal(){ stopMusic(.6); modal.hidden=true; spinning=false; btn.disabled=false; note.innerHTML=NOTE_IDLE; player=null; openEntry(); }
   btn.addEventListener("click",spin);
   document.getElementById("closeBtn").addEventListener("click",closeModal);
   modal.addEventListener("click",e=>{ if(e.target===modal) closeModal(); });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!modal.hidden) closeModal(); });
 
+
+
+  /* ---------- Entry form + Google Sheet ---------- */
+  let player=null;
+  const entry=document.getElementById("entry"), form=document.getElementById("entryForm");
+  const fName=document.getElementById("fName"), fPhone=document.getElementById("fPhone"), fErr=document.getElementById("fErr"), fGo=document.getElementById("fGo");
+  document.getElementById("entryLogo").src=document.querySelector(".brand img").src;
+  document.getElementById("entryGifts").innerHTML=PRIZES.map(p=>`<i class="${p.fg!=="#fff"?"d":""}" style="--c:${p.bg}">${p.name.replace("Ant Esports ","").replace("3-Year Antivirus at 50% Off","50% Off Antivirus")}</i>`).join("");
+  const sheetReady=/^https:\/\/script\.google\.com\//.test(SHEET_URL);
+  function openEntry(){ form.reset(); fErr.textContent=""; fName.removeAttribute("aria-invalid"); fPhone.removeAttribute("aria-invalid"); fGo.disabled=false; fGo.textContent="Continue to Spin"; entry.hidden=false; setTimeout(()=>fName.focus(),60); }
+  fPhone.addEventListener("input",()=>{ let d=fPhone.value.replace(/\D/g,""); if(d.length>10&&/^(91|0)/.test(d)) d=d.replace(/^(91|0)/,""); fPhone.value=d.slice(0,10); });
+  async function api(body){
+    const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),9000);
+    try{
+      const r=await fetch(SHEET_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body),signal:ctl.signal});
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+  function pending(){ try{ return JSON.parse(localStorage.getItem("cps-pending")||"[]"); }catch(e){ return []; } }
+  function setPending(a){ try{ localStorage.setItem("cps-pending",JSON.stringify(a)); }catch(e){} }
+  async function saveSpin(rec){
+    if(!sheetReady) return;
+    try{ const r=await api(rec); if(!r||!r.ok) throw 0; }
+    catch(e){ const a=pending(); a.push(rec); setPending(a); }
+  }
+  async function flushPending(){
+    if(!sheetReady) return;
+    const a=pending(); if(!a.length) return;
+    const left=[];
+    for(const rec of a){ try{ const r=await api(rec); if(!r||!r.ok) left.push(rec); }catch(e){ left.push(rec); } }
+    setPending(left);
+  }
+  flushPending();
+  form.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const name=fName.value.trim().replace(/\s+/g," "), phone=fPhone.value.trim();
+    fName.removeAttribute("aria-invalid"); fPhone.removeAttribute("aria-invalid");
+    if(name.length<2){ fErr.textContent="Please enter your name."; fName.setAttribute("aria-invalid","true"); fName.focus(); return; }
+    if(!/^[6-9]\d{9}$/.test(phone)){ fErr.textContent="Please enter a valid 10-digit mobile number."; fPhone.setAttribute("aria-invalid","true"); fPhone.focus(); return; }
+    fErr.textContent=""; fGo.disabled=true; fGo.textContent="Please wait…";
+    let prev=null;
+    if(sheetReady){ try{ const r=await api({action:"check",phone}); if(r&&r.ok&&r.exists) prev=r; }catch(err){} }
+    if(prev){
+      entry.hidden=true; player=null;
+      document.getElementById("winK").textContent=`Welcome back, ${name.split(" ")[0]}! You already won`;
+      document.getElementById("winTitle").textContent=prev.prize||"Your gift";
+      document.getElementById("winTitle").style.color="#7B2CBF";
+      document.getElementById("winSub").textContent="Each mobile number can spin once. Show this code at the store to claim your gift.";
+      document.getElementById("winCode").textContent=prev.code||"";
+      modal.hidden=false; spinning=true; btn.disabled=true; document.getElementById("closeBtn").focus();
+      return;
+    }
+    player={name,phone,first:name.split(" ")[0]};
+    entry.hidden=true;
+    note.innerHTML=`Hi <span class="hello">${player.first.replace(/[<>&"]/g,"")}</span>! Tap <b>SPIN</b> to try your luck`;
+    btn.focus();
+  });
 
   /* ---------- Navratri music: a random song on every spin ---------- */
   const SONGS=[
